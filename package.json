@@ -3,13 +3,32 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Indrafv/shift-management.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Indrafv/shift-management/issues"
+  },
+  "homepage": "https://github.com/Indrafv/shift-management#readme",
   "devDependencies": {
+    "nodemon": "^3.1.11",
     "prisma": "^7.0.1"
+  },
+  "dependencies": {
+    "@prisma/adapter-better-sqlite3": "^7.0.1",
+    "@prisma/client": "^7.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "zod": "4.1.13"
   }
 }
