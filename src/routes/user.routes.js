@@ -8,7 +8,7 @@ const router = Router()
 router.get('/users', getUsers)
 router.post('/users', createUser)
 
-router.get('/user/:id', getUserById)
+router.get('/users/:id', getUserById)
 router.put('/users/:id', updateUser)
 router.delete('/users/:id', deleteUser)
 

@@ -1,5 +1,5 @@
 import { prisma } from "../lib/prisma.js";
-
+import { validateAppointment, validatePartialAppointment } from "../schemas/appointment.schema.js";
 const getAppointments = async (req, res) => {
     const appointments = await prisma.appointment.findMany()
     res.json(appointments)
@@ -14,6 +14,13 @@ const getAppointmentById = async (req, res) => {
 }
 
 const createAppointment = async (req, res) => {
+    
+
+    const result = validateAppointment(req.body);
+    if (result.error) {
+        return res.status(400).json({ error: result.error.message });
+    }
+
     const newAppointment = await prisma.appointment.create({
         data: req.body
     })
@@ -21,6 +28,10 @@ const createAppointment = async (req, res) => {
 }
 
 const updateAppointment = async (req, res) => {
+    const result = validatePartialAppointment(req.body);
+    if (result.error) {
+        return res.status(400).json({ error: result.error.message });
+    }
     const { id } = req.params
     const updatedAppointment = await prisma.appointment.update({
         where: { id: Number(id) },
