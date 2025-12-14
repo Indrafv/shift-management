@@ -1,0 +1,1 @@
+A full-stack web application built to manage appointments in an organized and efficient way. It provides a RESTful API for handling appointment data and a React-based frontend for interacting with the system. The project focuses on clean architecture, proper error handling, and scalable design.
