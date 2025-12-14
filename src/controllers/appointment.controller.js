@@ -1,19 +1,17 @@
-import { prisma } from "../lib/prisma.js";
+import {  } from "../models/appointment.model.js"
 import { validateAppointment, validatePartialAppointment } from "../schemas/appointment.schema.js";
-const getAppointments = async (req, res) => {
-    const appointments = await prisma.appointment.findMany()
+export const getAppointments = async (req, res) => {
+    const appointments = await AppointmentModel.getAppointments()
     res.json(appointments)
 }
 
-const getAppointmentById = async (req, res) => {
+export const getAppointmentById = async (req, res) => {
     const { id } = req.params
-    const appointment = await prisma.appointment.findUnique({
-        where: { id: Number(id) }
-    })
+    const appointment = await AppointmentModel.getAppointmentById(id)
     res.json(appointment)
 }
 
-const createAppointment = async (req, res) => {
+export const createAppointment = async (req, res) => {
     
 
     const result = validateAppointment(req.body);
@@ -21,31 +19,23 @@ const createAppointment = async (req, res) => {
         return res.status(400).json({ error: result.error.message });
     }
 
-    const newAppointment = await prisma.appointment.create({
-        data: req.body
-    })
+    const newAppointment = await AppointmentModel.appointmentCreate(req.body);
     res.json(newAppointment)
 }
 
-const updateAppointment = async (req, res) => {
+export const updateAppointment = async (req, res) => {
     const result = validatePartialAppointment(req.body);
     if (result.error) {
         return res.status(400).json({ error: result.error.message });
     }
     const { id } = req.params
-    const updatedAppointment = await prisma.appointment.update({
-        where: { id: Number(id) },
-        data: req.body
-    })
+    const updatedAppointment = await AppointmentModel.appointmentUpdate(id, req.body)
     res.json(updatedAppointment)
 }
 
-const deleteAppointment = async (req, res) => {
+export const deleteAppointment = async (req, res) => {
     const { id } = req.params
-    const deletedAppointment = await prisma.appointment.delete({
-        where: { id: Number(id) }
-    })
+    const deletedAppointment = await AppointmentModel.appointmentDelete(id)
     res.status(204).json(deletedAppointment)
 }
 
-export { getAppointments, getAppointmentById, createAppointment, updateAppointment, deleteAppointment }
